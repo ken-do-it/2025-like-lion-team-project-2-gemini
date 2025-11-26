@@ -6,8 +6,15 @@ from httpx import AsyncClient, ASGITransport
 from sqlalchemy.orm import Session
 
 from app.main import app
-from app.db.database import get_db, SessionLocal
+from app.db.database import get_db, SessionLocal, engine, Base
 from app.api.dependencies import get_current_user
+
+# Setup database tables before tests
+@pytest.fixture(scope="session", autouse=True)
+def setup_database():
+    Base.metadata.create_all(bind=engine)
+    yield
+    Base.metadata.drop_all(bind=engine)
 
 # Event Loop Fixture
 @pytest.fixture(scope="session")
@@ -17,9 +24,13 @@ def event_loop():
     loop.close()
 
 # Database Session Fixture
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def db() -> Generator:
-    yield SessionLocal()
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 # Async Client Fixture
 @pytest_asyncio.fixture
