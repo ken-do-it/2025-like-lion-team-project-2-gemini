@@ -13,3 +13,6 @@ pydantic-settings
 python-multipart
 pytest
 pytest-asyncio
+flake8
+black
+isort
