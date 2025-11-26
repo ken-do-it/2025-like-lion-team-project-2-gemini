@@ -6,7 +6,7 @@ async def test_read_users_me(authorized_client: AsyncClient):
     response = await authorized_client.get("/api/v1/users/me")
     assert response.status_code == 200
     data = response.json()
-    assert data["email"] == "test@example.com"
+    assert data["user_id"] == "test-user-id"
     assert data["nickname"] == "testuser"
 
 @pytest.mark.asyncio
