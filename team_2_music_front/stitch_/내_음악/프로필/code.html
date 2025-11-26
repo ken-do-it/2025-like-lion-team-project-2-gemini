@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Creator Studio - My Music</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#E02494",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#121212",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-6 sm:px-10 py-3 bg-background-light dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary text-3xl">
+                        music_note
+                    </span>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">AI Music</h2>
+</div>
+</div>
+<div class="hidden md:flex flex-1 justify-center">
+<label class="flex flex-col min-w-40 !h-10 max-w-sm w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-400 dark:text-gray-500 flex bg-gray-200 dark:bg-[#1E1E1E] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-black dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-gray-200 dark:bg-[#1E1E1E] focus:border-none h-full placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search for artists, tracks, genres..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="hidden lg:flex items-center gap-8">
+<a class="text-gray-300 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Explore</a>
+<a class="text-gray-300 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Community</a>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary/20 text-primary hover:bg-primary/30 text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Upload</span>
+</button>
+</div>
+<div class="flex gap-3">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-gray-200 dark:bg-[#1E1E1E] text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-[#2a2a2a] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar placeholder image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAu-V6OdhvrD1yj4Us3X8ddDOwSDH5ZGPYmQFNmG0l4A2ysXHY-Nasf36zsiRiT_a0SXOa3LMGaQcnP7XkXNFJqLd6zKU6ofo-IdYtxAX6-JJzU7h5DCv0ZZiTQbXm7wyNlQxZuaZVUwdHMOP8XjEg5YHAKPI_S3Q0Q_t-OtfRc4MBTy1oLzMz3F-fW6yIcm9Q0_aWF8TMbDoCcBfwGa55SulYMhuJ7RA2nM7bEeljSk-3htL3tFvqkymGQ3y4lrUthG1Hv8uxy0b8");'></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="flex-grow flex container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex w-full gap-8">
+<!-- SideNavBar -->
+<aside class="w-1/4 xl:w-1/5 hidden md:block">
+<div class="flex h-full min-h-[700px] flex-col justify-between bg-transparent p-4 sticky top-24">
+<div class="flex flex-col gap-6">
+<div class="flex flex-col items-center text-center gap-3">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-24 border-2 border-primary" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIv2vgnSMjdN9Sq5X8oAYdmrw3a25doDrUyFDskoG9CitxM7Dh1jk9gzaxd31GGjJWYHhZN6GjQKbbWwd3SvjPWJ3tWFXOlYvd6yzGYvqOVRQEoB5TyPejAZGWlqppTliZsMn8fUDvCFBNw_d_WDZkj4w-AhCwkkL8TNOTdrxjYlaMKvaHjngBeebmEaIepH5DNY0_whIiSqaWE2mTq-0Gzbx4Vo7ZQFn7Mw9_2gQzyGXToP-UWUMz5lN6AFMAPNhumbERNSigZ1E");'></div>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-xl font-bold leading-normal">CreativeArtist</h1>
+<p class="text-gray-400 text-sm font-normal leading-normal">2.4k Followers</p>
+</div>
+<button class="w-full flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-[#2a2a2a] hover:bg-[#3a3a3a] text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Edit Profile</span>
+</button>
+</div>
+<div class="flex flex-col gap-2 pt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+<span class="material-symbols-outlined">queue_music</span>
+<p class="text-sm font-bold leading-normal">My Music</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 text-gray-300 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium leading-normal">Statistics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 text-gray-300 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Profile Settings</p>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Center Content -->
+<main class="w-full md:w-3/4 xl:w-4/5 flex-grow">
+<div class="flex flex-col gap-6">
+<!-- Tabs -->
+<div class="border-b border-white/10">
+<div class="flex px-1 sm:px-4 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-white pb-[13px] pt-2" href="#">
+<p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">My Music</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-gray-400 hover:text-white pb-[13px] pt-2" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Statistics</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-gray-400 hover:text-white pb-[13px] pt-2" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Playlists</p>
+</a>
+</div>
+</div>
+<!-- Search and Filter -->
+<div class="flex flex-col sm:flex-row gap-4 items-center px-1 sm:px-4">
+<div class="w-full sm:w-2/3 lg:w-1/2">
+<label class="flex flex-col min-w-40 h-11 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-400 flex border-none bg-[#1E1E1E] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-[#1E1E1E] focus:border-none h-full placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search my music by title..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex-grow flex justify-start sm:justify-end w-full">
+<div class="flex gap-2 sm:gap-3 overflow-x-auto">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#1E1E1E] hover:bg-[#2a2a2a] px-3 sm:pl-4 sm:pr-2 transition-colors">
+<p class="text-white text-sm font-medium leading-normal">Sort by: Recent</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#1E1E1E] hover:bg-[#2a2a2a] px-3 sm:pl-4 sm:pr-2 transition-colors">
+<p class="text-white text-sm font-medium leading-normal">Status: All</p>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Music List -->
+<div class="px-1 sm:px-4">
+<div class="bg-[#1E1E1E] rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left text-gray-300">
+<thead class="text-xs text-gray-400 uppercase bg-white/5">
+<tr>
+<th class="px-6 py-3 min-w-[250px]" scope="col">Track</th>
+<th class="px-6 py-3" scope="col">Plays</th>
+<th class="px-6 py-3" scope="col">Downloads</th>
+<th class="px-6 py-3" scope="col">Status</th>
+<th class="px-6 py-3" scope="col">Date Added</th>
+<th class="px-6 py-3" scope="col"><span class="sr-only">Actions</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-white/10 hover:bg-white/5">
+<th class="px-6 py-4 font-medium text-white whitespace-nowrap" scope="row">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-md size-12" data-alt="Album art for Neon Dreams" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDp3QKpHy4uUTVxvoqRdANvEPhPEV5B69jf7gnmUZjpRgrdWuzgbyn_9MUfvKcwY2YJZPfdGOf3llskSCSNqPdxC_FQMkp2BlPDUrLYlmPjhYwzC7Nc-EGS64fvSNNXrdP9UshARvUYC1oDMqxZ4zhTu1fPn8ms6tpLs8xh8vVANzl_FHWxKLxUNqRTKjArs1VKS3EIYEsG_bI9lRXT0_JuZEO714aUhJrPUKPiVyToAwvBfMhZZQsYP1r1DbXQY1P-CuNeJNw1v58");'></div>
+<p>Neon Dreams</p>
+</div>
+</th>
+<td class="px-6 py-4">12,403</td>
+<td class="px-6 py-4">845</td>
+<td class="px-6 py-4"><span class="bg-green-500/20 text-green-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Public</span></td>
+<td class="px-6 py-4">2024-05-20</td>
+<td class="px-6 py-4 text-right">
+<div class="flex gap-4 justify-end items-center">
+<a class="font-medium text-primary hover:underline" href="#">Edit</a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined text-xl">more_vert</span></a>
+</div>
+</td>
+</tr>
+<tr class="border-b border-white/10 hover:bg-white/5">
+<th class="px-6 py-4 font-medium text-white whitespace-nowrap" scope="row">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-md size-12" data-alt="Album art for Quantum Echoes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCcwsy-YL8-5aHwhM6_d3s7HV9UjenJEIsgUUD9oE5CFGffUTmSAX-vnPuLMc1v64UZe4eCI2QCCF-YjnppNrBn1lHT6OWp15UssqbR1MluCHF1MpIpvcGJaWlQUTcI9BEtqgn0f2dlFqd4QaSI4J0CkJLi930EVepf4aLVXuj7F-xcGJ_eoAAsvC6LE_SxK3V_3LFpibkyWepHmFwZCroTb9gScdYcSulZUTxS8Z8owo5JeD8-D-QleEykObPZShrV5g0QRm4x62g");'></div>
+<p>Quantum Echoes</p>
+</div>
+</th>
+<td class="px-6 py-4">8,921</td>
+<td class="px-6 py-4">512</td>
+<td class="px-6 py-4"><span class="bg-green-500/20 text-green-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Public</span></td>
+<td class="px-6 py-4">2024-05-15</td>
+<td class="px-6 py-4 text-right">
+<div class="flex gap-4 justify-end items-center">
+<a class="font-medium text-primary hover:underline" href="#">Edit</a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined text-xl">more_vert</span></a>
+</div>
+</td>
+</tr>
+<tr class="border-b border-white/10 hover:bg-white/5">
+<th class="px-6 py-4 font-medium text-white whitespace-nowrap" scope="row">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-md size-12" data-alt="Album art for Sunset Circuits" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJwgn-4qkruqdrxRGK0sDQm71z55-mhhXHEg5U6rOyaibgYuWg5ADrlI76pNzjJpf2FDx62cuEdr87FWH-Va8HByG0MYBHmPvACvBaKFep4MaEBEPDIL9CHTnfmR5fpSmpV848g-NUkssAJD3sw1Mc-Ek94eYf4JPxanwv0H0qZFJVFDmjOQyFqco2dcvtfJjCryjQf2qDH0iotgxLS85Wx73aX_SzTcj-82Zn0KkNPnjFmc9niEIVFoJGuSZUCWYdWa-Lpsz9soM");'></div>
+<p>Sunset Circuits</p>
+</div>
+</th>
+<td class="px-6 py-4">5,109</td>
+<td class="px-6 py-4">301</td>
+<td class="px-6 py-4"><span class="bg-gray-500/20 text-gray-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Private</span></td>
+<td class="px-6 py-4">2024-05-11</td>
+<td class="px-6 py-4 text-right">
+<div class="flex gap-4 justify-end items-center">
+<a class="font-medium text-primary hover:underline" href="#">Edit</a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined text-xl">more_vert</span></a>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5">
+<th class="px-6 py-4 font-medium text-white whitespace-nowrap" scope="row">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-md size-12" data-alt="Album art for Digital Bloom" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDywZFa8Gvn6jZXTKr9RkJTQ0jo9rXQQXs81oM2d1TBLmvp-Rvr5o8nALayxHsh8NlImx6IO9xa_xWcqi3V5w7-qOVEStYgzJqrpERRqK0x_XdYsuZYu9pA_SyTfRnTmJL4g6eQa4G8ElYV8khNVh0PGdYu_Dc8LGJdGgoeq2n4K52iD9EjPDcNFnuGBe96ZeU-BM4Dh9rphGjL13lLOvRSZD-1pqPUZ_8hPF6g-bIClpDqK-G_jUco9lJGTkhi452QYJ2zBH1aklY");'></div>
+<p>Digital Bloom</p>
+</div>
+</th>
+<td class="px-6 py-4">23,550</td>
+<td class="px-6 py-4">1,982</td>
+<td class="px-6 py-4"><span class="bg-green-500/20 text-green-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Public</span></td>
+<td class="px-6 py-4">2024-04-28</td>
+<td class="px-6 py-4 text-right">
+<div class="flex gap-4 justify-end items-center">
+<a class="font-medium text-primary hover:underline" href="#">Edit</a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined text-xl">more_vert</span></a>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</body></html>

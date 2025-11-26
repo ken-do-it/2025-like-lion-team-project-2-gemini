@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Music - Explore and Discover</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#8c2bee",
+              "background-light": "#f7f6f8",
+              "background-dark": "#191022",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full bg-background-dark/80 backdrop-blur-sm">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between border-b border-white/10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">music_note</span>
+<h1 class="text-xl font-bold tracking-tighter">AI Music</h1>
+</div>
+<nav class="hidden items-center gap-8 md:flex">
+<a class="text-sm font-medium text-gray-300 transition-colors hover:text-white" href="#">탐색</a>
+<a class="text-sm font-medium text-gray-300 transition-colors hover:text-white" href="#">업로드</a>
+<a class="text-sm font-medium text-gray-300 transition-colors hover:text-white" href="#">내 라이브러리</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-gray-300 transition-colors hover:bg-white/20 hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDtENzkGvmmTBezQTG4tnYos6jxBkrJZz_-U9oWC146ugpuHIPs8RpfhvIwLy9H1o_rQQGnlnh4R8Itk-ExtY1-gUci7Ym5pp4EGvJ85mz38jDz4i6v2GXwXt7fcNe-0Q-wJKGlFv0Z34TOpZQ2m2uCkRZfHkBiZaLhL0wtRTgBVuKnt-U-WdBSB39Vl7bnUQeuluIXzVs52XXinKPVtHFtkgtGzqbMkgvHyaGR9k_SC3Lg7ax33YG6vjXzsayqj85LWittsOXLrL4')"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<!-- Hero Section -->
+<section class="relative mb-12 flex min-h-[400px] flex-col items-center justify-center overflow-hidden rounded-xl bg-cover bg-center p-6 text-center" data-alt="Abstract purple and blue energy waves background" style="background-image: linear-gradient(rgba(25, 16, 34, 0.6) 0%, rgba(25, 16, 34, 0.9) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCivK-PS8EjugAgnicqfAj2ilOUYmFqRIRPaZ83j86azfsHIEEf8T2tfuGZrUVJA3hgfa0XE1PsmnhQuyhtmfBfD_xw07S8FHeDGYde-G2XI2HKede3FrmIQBmlcefvXrdi4S-Y-yR3D9u3pg9eew-nrQp60efrTJQT_PTIuYBlmfSiT49t2no_azAvKG_Vml8s7f3IJk_G8YA3A7Z_NAlzczSaIO8635T_kriH-3ZkEefM7mKOzov5MdM2AxZBJAG90z5kpg4K7EM');">
+<div class="z-10 flex flex-col items-center gap-4">
+<h2 class="text-4xl font-black leading-tight tracking-tighter sm:text-5xl md:text-6xl">AI 음악의 세계를 탐험하세요</h2>
+<p class="max-w-xl text-base text-gray-300 md:text-lg">AI가 만든 새로운 음악을 발견하고, 듣고, 공유하세요.</p>
+</div>
+<label class="relative z-10 mt-8 w-full max-w-xl">
+<div class="flex h-14 w-full items-stretch rounded-lg bg-background-dark/50 shadow-lg backdrop-blur-sm">
+<div class="flex items-center justify-center pl-4 text-gray-400">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="h-full w-full flex-1 resize-none border-0 bg-transparent px-4 text-base text-white placeholder-gray-400 focus:outline-none focus:ring-0" placeholder="아티스트, 트랙, 장르 검색" value=""/>
+<div class="flex items-center p-1.5">
+<button class="flex h-full min-w-[84px] cursor-pointer items-center justify-center rounded-md bg-primary px-5 text-sm font-bold text-white transition-transform hover:scale-105">
+<span>검색</span>
+</button>
+</div>
+</div>
+</label>
+</section>
+<!-- Top Trending Section -->
+<section class="mb-12">
+<div class="mb-4 flex items-center justify-between px-2">
+<h3 class="text-2xl font-bold leading-tight tracking-tight">인기 트랙</h3>
+<a class="text-sm font-medium text-gray-400 hover:text-white" href="#">더 보기</a>
+</div>
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Quantum Dreams" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHZQpQZjf2iBYqv7fBwRSq0u-XiPBJpq_F9a3idS2NKPdv9IFzsOLoGu105yqzzFAlpp89pFLxYjFBoi-fgAmWCczoPwir4c8O_uYE_fRCAsmArylHC2qkK8jYvR5yfQSjRej_QpEfAHTCmdBAc6dVUJMFPTOfO5GVQzoCrF5UleeyG1UB4QH385MXW4EqG40-v0JorUlNWBctGnslWFnFghBuPjbGNIYcq4XYhhIC4sxESDPM4Ty4azGpE7KqPSjvXiEqs1PRXE4"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Quantum Dreams</p>
+<p class="truncate text-sm text-gray-400">Synthwave AI</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Neon Pulse" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCApq5xjEJcW8xr4oEOlXvZ3mjulLHODPTa-PiaJ7xo5mZHv_hJMcO040eF3sfCH6IQz5Wrwx4CZTzi9p_LX--ElQ7-OiJbyeLPln2XMYnLOPemfy4e2LmKS_4Y0b0bOYRX_h94aGiBFaguiPwrt_In3xp7jVPgzZ-wVVytgkFcp36_yXHi6IIBsyEc0UhWSlIuj-XVau8axI3WLSPqpLl9HA-8rlUK9F6w9RRd9yGU874puJyoxTD-bPtHCNCIpxNYDoNgGXslsgU"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Neon Pulse</p>
+<p class="truncate text-sm text-gray-400">GlitchHop Bot</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Cybernetic Serenade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2ks8uR6FStpNNsdoLDYbwIIRQhC4jElXqKGrycnIXS72rvTGfEa3duf1Y00ORckqTR8nBYMP_BtkuHQhZBz59R8xiw4TX8mHfGElLFs0QBK3DJ6ULE5Enk1k8zxZQzfHdfuDlcxGT2qB6xHW3ud1Jsj-Ca2fn_ag0w36RKuxclpstI_sCxRZQdEqX8tS2M0kty2V78QGi37ohXo2hPG_sBYKSO8HGn-ZdF80Ou5bBgitGZvFnwrecdOmEicRcq9YMSFBqjyp2Ifw"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Cybernetic Serenade</p>
+<p class="truncate text-sm text-gray-400">OrchestraTron</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Data Stream" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeEM_V1NIP08E4TCDHPbOodTh8AIo76rP-Obz5xPQqzLyk6C9twNGGVPcx9eiWz0uwlG6pWrEl1DFHkXN0uSHyETVskblUm-VCVrBFZn5TXDBoj1jgRZTd2XUF7Ro6592GEsqw8dtXFj-CVgNIpzMd8IzQpXtPLN-0go97Nok2rcIYt87OEIoWzleScBLrvOMdFcNIl2AppQ4KyUeCzbrV51SbMiJw9N2BM_KFos6NM7RqehikgUtvpu6XHsiPXhqMJgOsRXuDr8I"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Data Stream</p>
+<p class="truncate text-sm text-gray-400">LoFi Generator</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Binary Sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcQnplFCBkSpYIRuOqf8wHMoIiYkm99nX49UMwh6y_NsGNjIJ_QVLyzBImyb85V8LCgA6EEYyQXoSWD4VTnvkVBZ3BEVPuaxo9ZlFBkVGlHhqix24Gfte4J6ORjUiSNDKQFcZ02An6_K4azS-I2KAgrPq62wUHciEdMEv1Hl2fzmVjTagnDR-5XeGjHBuUE-4bG5hAVCHe1oM2Bt6_SD48JCrBR2QJlC8tO8knUX5MPZOOPthNPUHkQ2ROg-F5vv7_tJ_a8InlfNI"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Binary Sunset</p>
+<p class="truncate text-sm text-gray-400">Ambient AI</p>
+</div>
+</div>
+<div class="group hidden flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5 xl:flex">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Digital Ocean" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbGaN_HT6LNR1GkVHAvrrG1ZVE5cT42n_qvCOClFXxabfP7Gb22SIjQt5SkmEJYqdW5TuqTiHynnOc2EeVnsJUZpHWq7q8fwxpTceTj9-b9nFRRD1ktxlKoPi19SI-rGrOWjkT7Hy65Pf1DNQUlxzTZhh3dtwZZ4Mb-JGPHu3i3shmXotoVfMpTPsIsKISBhEBWDGVcgP0vnAGz1BMZccCmOPkYjXJsBmtf-dDlQCjR7MlLKyVZ9mRVhVaqSaoS-qM1krQkMLoMfM"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Digital Ocean</p>
+<p class="truncate text-sm text-gray-400">Chillwave Bot</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest Uploads Section -->
+<section class="mb-12">
+<div class="mb-4 flex items-center justify-between px-2">
+<h3 class="text-2xl font-bold leading-tight tracking-tight">최신 트랙</h3>
+<a class="text-sm font-medium text-gray-400 hover:text-white" href="#">더 보기</a>
+</div>
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Morning Mist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3q8ZSRsGadLRM-vrGIz7UlO-jQMconve1Tx9ETjQsDYeD32iy9jSXxS_HQG5tl1YkWjn0a0mViufIagA_fVP-t3lGwXG4auHCpG8r9P7qeTzpzsrHKE8IB3Fjmz9unwaXTFzmu8ky8B3kAJO_crKxa63m0b3Wwhc4H8sTx_68wqe3_VbHbrUJML3ZoGlV3mqpWcYBqODxDGL9aX836XrdNcCrlV-znn2bahKKGb3uFZE40K2kPo2gfhCIT8uo0fuVu6wrJm6DM2o"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Morning Mist</p>
+<p class="truncate text-sm text-gray-400">AcousticGen</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for City Lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJElYBnrgIbVT_QG3qfbD3FqhncJhq1ESJHqUDqrKlDKAFBIFshJACfWz7XsyAfX4aKHo8Q51uOvWn1YM0K9JajyYjmKr7Gk0EJ8x8QGiIhKfpAAsM_0Zdmn5bftwTrp7-qgwiIJs4nUtQeMxIcYEkkidPp2W7iUBBSf6RB4DKvZ1oxeuzmE7ww9cjNe1ZDxgSQjka1-g1N_Zei4tblVub-EgUaxjdH9pkvG91sU00mAnUv9InD6U_bZJARcitkVuGAYd9tgc2rMs"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">City Lights</p>
+<p class="truncate text-sm text-gray-400">JazzNet</p>
+</div>
+</div>
+<div class="group hidden flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5 md:flex">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Echoes in Time" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1tCQ9T9Iq1h9tOGuF3kAPZKnL0nAgJo-72DWK3l9mi5fe-wUsp2J9SLsUwhSRob1Rw_LHYIHQbxkEF465BP-PylW7cIlY-8OGdL6YiRui1OLokWHm1_KT_y0BIVdflCrG3MwsVCP1MWrB2oe8m1k6TL6qSsxej04Js0IaoqGU7QC1AZ5tfBe_W7mQsz8QBRoUajESVMNvSqt1Ynw9Xtc2AU7eg7lg4gKolQYkT29kWH3aELQHbaBAfVw23bz1lgNZCWi0z1toTYQ"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Echoes in Time</p>
+<p class="truncate text-sm text-gray-400">PostRockAI</p>
+</div>
+</div>
+<div class="group hidden flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5 lg:flex">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Sandstorm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyrCdba0Jf47rE-EeH2igGP4rgJhPzNwEyz55I1RgvicbxNCNmqkfByyIaKX8uYNG9VA6Nqmo9H_YDgSz2QoTlOn1dYg1GbZYG-zi85vkh8_WF4SAS1SZa6WHOC8e0d-zMxdGHxDLhqihMv1x5IoZnuUoGbyNAbBiQm1Od5W67bdCZ4EeXzFuDs3zA4BJVijUCnCygV4qrMxWo_ilRAvU9Y9SnmfIEyjybzRUn0d9xWupetQpNn8f6SaOGivkQfdYsNyIVRHCaEBk"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Sandstorm</p>
+<p class="truncate text-sm text-gray-400">TechnoCore</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Section -->
+<section>
+<div class="mb-4 flex items-center justify-between px-2">
+<h3 class="text-2xl font-bold leading-tight tracking-tight">추천 트랙</h3>
+<a class="text-sm font-medium text-gray-400 hover:text-white" href="#">더 보기</a>
+</div>
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Galactic Drift" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiJL58xvitOQC2KxT0lUM_QrWSVaoMpQ8J-fqCeI9Blb_bHp0hwUsCVPtvrgnXeQXlssKRWcLtiZfxKzY91-RgCP-fpqle8HGthKvtRyX76OUMx-2kzGHirZxsrAPo2Iw7k1lZhjixh5_Poq6oU_iqbkTMppHHIcUY8D0lRMf27zpiI3jM2XlmDWtUC5M-8G8I1wDMCMYuanY0h2QagYhHfX8LvzNCwWQnUsfROgKmSSXdyywxU7AUTdRkyxdw27AwtNYkCD8cNxo"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Galactic Drift</p>
+<p class="truncate text-sm text-gray-400">Cosmic Composer</p>
+</div>
+</div>
+<div class="group flex flex-col gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+<div class="relative w-full overflow-hidden rounded-lg pt-[100%]">
+<img class="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Forest Lullaby" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBotXPC7JhyGPUvKUyBOAMdXBcPJIsI1nuiBF3T0fw2U-pnffr7wqi8kwhmuz2mbNJjaSultuHk3qlI4YLFS0Bt6fQnsmUqhNOm9ero0xB_gVGtxVVOp-kqxpD1yZ0hKsPHigvLvy8WwLrOJN8d8tgLRWxABWvM6FwPZJXP6L91MrF8AL0GfNJpLosyXxQFJASwjz6b-x41-aAUPks65TATdp_X1obPBCBravqWTKeLDkJr3Dclb0kyNUAjZP_kuPhhWkqT_TePeU"/>
+<button class="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bottom-4 group-hover:opacity-100">
+<span class="material-symbols-outlined text-2xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="truncate text-base font-medium text-white">Forest Lullaby</p>
+<p class="truncate text-sm text-gray-400">NatureAI</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Persistent Music Player -->
+<footer class="sticky bottom-0 z-50 mt-auto w-full bg-black/50 backdrop-blur-lg">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid h-20 grid-cols-3 items-center">
+<div class="flex items-center gap-3">
+<div class="h-12 w-12 flex-shrink-0 rounded bg-cover bg-center" data-alt="Album art for currently playing track, Quantum Dreams" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_478z-bDlHKKgw-TvIPTkf6BayLLL6frIZEG5iowQqNwGDZndm7ylmSigybQKA3XhNtqcnQbxBYsRTy_M-jKFidn23A0dtxUQ3Dm3kwlTwfGxYp3EKvc7-fxn3MYcU9Rvx7e5hxbd7br9YSsFM7qsKh4QDGTEDw0ni1w8dUHjSul6F2s9XlxYG1_1dW5knp8bVrKDQ7pMeQHV98nm_G63GnPmWw2DPDcBpCG9Zrr4iIH_PQaJaPa0ey4d-4REnmo48Jv6Keagn78')"></div>
+<div class="hidden sm:block">
+<p class="truncate text-sm font-bold text-white">Quantum Dreams</p>
+<p class="truncate text-xs text-gray-400">Synthwave AI</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center gap-2">
+<div class="flex items-center gap-4 text-gray-300">
+<button class="transition-colors hover:text-white"><span class="material-symbols-outlined text-2xl">skip_previous</span></button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition-transform hover:scale-110"><span class="material-symbols-outlined text-3xl">pause</span></button>
+<button class="transition-colors hover:text-white"><span class="material-symbols-outlined text-2xl">skip_next</span></button>
+</div>
+<div class="hidden w-full max-w-xs items-center gap-2 text-xs md:flex">
+<span class="text-gray-400">1:21</span>
+<div class="h-1 w-full flex-1 rounded-full bg-gray-600">
+<div class="h-full w-2/5 rounded-full bg-white"></div>
+</div>
+<span class="text-gray-400">3:45</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-3 text-gray-300">
+<button class="transition-colors hover:text-white"><span class="material-symbols-outlined text-xl">favorite_border</span></button>
+<button class="transition-colors hover:text-white"><span class="material-symbols-outlined text-xl">download</span></button>
+<div class="hidden items-center gap-2 md:flex">
+<button class="transition-colors hover:text-white"><span class="material-symbols-outlined text-xl">volume_up</span></button>
+<div class="h-1 w-20 rounded-full bg-gray-600">
+<div class="h-full w-3/4 rounded-full bg-white"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

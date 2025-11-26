@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Music Gen - Track Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8d2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1a1122",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-6xl flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 dark:border-b-[#362348] px-4 md:px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-black dark:text-white">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined !text-3xl">model_training</span>
+</div>
+<h2 class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">AI Music Gen</h2>
+</div>
+<div class="hidden md:flex items-center gap-9">
+<a class="text-black dark:text-white text-sm font-medium leading-normal" href="#">Explore</a>
+<a class="text-black dark:text-white text-sm font-medium leading-normal" href="#">Upload</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-2 sm:gap-4 md:gap-8 items-center">
+<label class="hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-black/60 dark:text-[#ad92c9] flex border-none bg-black/5 dark:bg-[#362348] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-black dark:text-white focus:outline-0 focus:ring-0 border-none bg-black/5 dark:bg-[#362348] focus:border-none h-full placeholder:text-black/60 dark:placeholder:text-[#ad92c9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-black/5 dark:bg-[#362348] text-black dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<div class="text-black dark:text-white"><span class="material-symbols-outlined">notifications</span></div>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQBGMqsZVxUnO3sIpeCdcSlJB4Ti0EmARPmW9YZENbChUHqezjnOChVvubBVhwhsI-wsw4r53onSpIhWY4_zvlBVXi728B1i0WBNX8XX4xJauqYjGp7GDeIlXJB-_F-Z8OjJVx56UNdqIPwKsydef8BgBpUpT4NLYlVltqzM1wnv7QoS_ucai5TjITskvyzL_1FtRO4jGq56dMBQygxP3c9A7bfJ7xlazsKVbRfYZJGLY1cp_O3n65ASjraWTuEZBRDTNT45Shr_8");'></div>
+</div>
+</header>
+<main class="mt-8 px-2 sm:px-4">
+<div class="flex flex-col lg:flex-row gap-12">
+<div class="flex-1 lg:max-w-md xl:max-w-lg">
+<div class="flex flex-col items-stretch gap-6 bg-transparent text-black dark:text-white">
+<div class="flex items-center justify-center py-7">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full max-w-sm sm:max-w-md lg:max-w-full shadow-2xl shadow-primary/20" data-alt="Album cover for Quantum Dreams, showing a futuristic digital landscape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCi3zLwLWqz0IHmgjF1ox036jwOSHmS2PUm912y7cCpkrf8Lb_EeO1J5O5YfRriTABHcpJJ4dnS_bfMPux051X19Bbwq4pYLGnERXrxeWNabVGEuEwtqG-bTpjdma3_nO8u9duH0hL5ihUrV7MjrwE5wvTgG0hKRYeyqQZTfHYIkCW-d4Ni9VrX7Rr_3XMc3ucElmO_DbzNaNmZlQbLIk8rRFaMc69UP1zwLtZzkTFuFM4w-Y9wXTA1GBW6z_VreMHdO_TK1h0L6BQ");'></div>
+</div>
+<div class="text-center">
+<p class="text-black dark:text-white text-[28px] font-bold leading-tight tracking-[-0.015em] truncate">Quantum Dreams</p>
+<p class="text-black/60 dark:text-[#ad92c9] text-base font-normal leading-normal truncate">By SynthWave Creator</p>
+</div>
+<div>
+<div class="flex h-4 items-center justify-center">
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+<div class="relative">
+<div class="absolute -left-2.5 -top-2.5 size-5 rounded-full bg-primary border-4 border-background-light dark:border-background-dark"></div>
+</div>
+<div class="h-1.5 flex-1 rounded-full bg-primary opacity-30"></div>
+</div>
+<div class="flex items-center justify-between mt-1">
+<p class="text-black/60 dark:text-[#ad92c9] text-xs font-medium leading-normal tracking-[0.015em]">1:17</p>
+<p class="text-black/60 dark:text-[#ad92c9] text-xs font-medium leading-normal tracking-[0.015em]">2:23</p>
+</div>
+</div>
+<div class="flex items-center justify-center gap-6 pt-1">
+<button class="flex shrink-0 items-center justify-center rounded-full size-10 text-primary">
+<div class="text-inherit"><span class="material-symbols-outlined !text-4xl">skip_previous</span></div>
+</button>
+<button class="flex shrink-0 items-center justify-center rounded-full size-10 text-primary">
+<div class="text-inherit"><span class="material-symbols-outlined !text-4xl">replay_10</span></div>
+</button>
+<button class="flex shrink-0 items-center justify-center rounded-full size-16 bg-primary text-white">
+<div class="text-inherit"><span class="material-symbols-outlined !text-5xl">play_arrow</span></div>
+</button>
+<button class="flex shrink-0 items-center justify-center rounded-full size-10 text-primary">
+<div class="text-inherit"><span class="material-symbols-outlined !text-4xl">forward_10</span></div>
+</button>
+<button class="flex shrink-0 items-center justify-center rounded-full size-10 text-primary">
+<div class="text-inherit"><span class="material-symbols-outlined !text-4xl">skip_next</span></div>
+</button>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-8">
+<div class="flex items-center gap-4 border-b border-black/10 dark:border-white/10 pb-6 flex-wrap">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 h-12 px-6 bg-primary text-white rounded-lg font-bold text-base">
+<span class="material-symbols-outlined">download</span>
+                                        Download
+                                    </button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 h-12 px-6 bg-black/5 dark:bg-white/10 text-black dark:text-white rounded-lg font-medium text-base">
+<span class="material-symbols-outlined">share</span>
+                                        Share
+                                    </button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 h-12 px-6 bg-black/5 dark:bg-white/10 text-black dark:text-white rounded-lg font-medium text-base">
+<span class="material-symbols-outlined">favorite_border</span>
+                                        Like
+                                    </button>
+<div class="w-full sm:w-auto flex flex-1 items-center justify-end gap-6 text-center sm:text-left mt-4 sm:mt-0">
+<div>
+<p class="font-bold text-lg text-black dark:text-white">1.2M</p>
+<p class="text-xs text-black/60 dark:text-white/60">Plays</p>
+</div>
+<div>
+<p class="font-bold text-lg text-black dark:text-white">89K</p>
+<p class="text-xs text-black/60 dark:text-white/60">Likes</p>
+</div>
+<div>
+<p class="font-bold text-lg text-black dark:text-white">12K</p>
+<p class="text-xs text-black/60 dark:text-white/60">Downloads</p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-black dark:text-white">About This Track</h3>
+<p class="text-black/80 dark:text-white/80 leading-relaxed">
+                                        "Quantum Dreams" is a procedurally generated ambient track crafted by the SynthWave AI model. It explores the fusion of classic 80s synth sounds with modern atmospheric textures, creating a soundscape that is both nostalgic and futuristic. The track was generated using prompts related to "cyberpunk cities at dusk," "neon reflections on wet pavement," and "a sense of hopeful melancholy."
+                                    </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="px-3 py-1 text-sm rounded-full bg-primary/20 text-primary font-medium">#Ambient</span>
+<span class="px-3 py-1 text-sm rounded-full bg-primary/20 text-primary font-medium">#AI-Generated</span>
+<span class="px-3 py-1 text-sm rounded-full bg-primary/20 text-primary font-medium">#Cinematic</span>
+<span class="px-3 py-1 text-sm rounded-full bg-primary/20 text-primary font-medium">#Synthwave</span>
+</div>
+</div>
+<div class="space-y-6">
+<h3 class="text-xl font-bold text-black dark:text-white">Comments (3)</h3>
+<div class="flex items-start gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAh9tMijkY_kTcI2K-yg3lR2di8AcuGQWmtsPx6GdXPFcrfwA6qJNZ8GFA2bnOjizOzPT9rXcqkpkXGL_JHFp4FztGfcubmRcosKKRBtqO7dQj6u8mt7CVEptiyq8h3B-e7Xd-j_O5u169Dh71Gay9_NSUZWnhKRsZG_BrbFaBH3c0viev37YeKRjgO-1XOsTsIxCIPIAzyRyvNpAajKW6ctCH6Px6pbTXsBNKRvC-TX0vpr89o5aWK6CIjb_c5WYSdohi6k1Nn7H0");'></div>
+<div class="flex-1">
+<textarea class="form-textarea w-full rounded-lg bg-black/5 dark:bg-[#362348] border-none focus:ring-2 focus:ring-primary text-black dark:text-white placeholder:text-black/60 dark:placeholder:text-[#ad92c9]" placeholder="Add a comment..." rows="2"></textarea>
+<button class="mt-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold">Post Comment</button>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCkIayxYcX_jTP_92PPn9B6YQqUJedmzmAATJ6T5Ed0Qc4oiGOi9KWXbjphqbL8yjEUghS2qAQwzmPEx9TeQHcSiL8NsEmBmcdKyJwO1fmKIqCAdU5c1m9_VWdXMMMWnkHzmF2QKp0Z7JHw7CorjljauL-D0vC1XukONQ0jp_g1XkTULPfHm7dSUxeupsxYjoeqVus5QXye-bzAdtk6qYKEbfAkTHGE_YxEzEF-mCUW3Z5iAc1nVJEVCmcr-_9ViEPju2Mx05IzR3A");'></div>
+<div class="flex-1">
+<p class="font-bold text-black dark:text-white">Alex Johnson</p>
+<p class="text-black/80 dark:text-white/80">This is incredible. Perfect for late-night coding sessions. The AI really captured the retro-futuristic vibe.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAO67-8lZksv3hqphzncTyXwvutvM6puIdvgpy3pfVrf6N2lDI0jwgVyL3qVqSjNhAEAYQcJBgfsg6H2Ti14h5GhvS4JPj5I0lQKWnSs_JuDgVhbmfjV0cp7pFP9FoByaCuH68tMDea7a6gJJQWC4iG9dL0rWSHcyefsa8N7QDW19R6M2xFFLyX7Rir9DJDgh24-1prLbvFT5sNxprCaiks7Z52pyq6JKsQO1qauD-9-LjfskFHkjX7ksjTFB7NqTjYzDDrlcw1W-Q");'></div>
+<div class="flex-1">
+<p class="font-bold text-black dark:text-white">Maria Garcia</p>
+<p class="text-black/80 dark:text-white/80">Wow, I can't believe an AI made this. The melody is so hauntingly beautiful. Downloading for sure!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16">
+<h2 class="text-2xl font-bold text-black dark:text-white mb-6">Related Tracks</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<div class="flex flex-col gap-3 group">
+<div class="relative overflow-hidden rounded-lg aspect-square">
+<div class="bg-center bg-no-repeat w-full h-full bg-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Nebula Weaver" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvdAEVTcwfUhZQyLRl5ozbeEyTxHwRyC7rmHmfFwv1FnVAxUgmJCpWboF8srUEveVNF4wrTsMazMV85hWr1gYQUFPTH0gXRsTmwCc3YmfCZEB9HsYEh318hdbkXPXEp-SMPnudXmD-es9al1U7lDtPGd9RlrWYJSd61u_4DYUWc0pEVZiZ25dVh-lG_O1ABKSmcdcfslk6y_g8-oGq0xArVBOCjswMIb06FtQHv5i78Rl99ZFy-M4LC2AVXG1kKPNAPPicgpjM3vs");'></div>
+<button class="absolute bottom-3 right-3 flex items-center justify-center size-10 bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined !text-3xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="font-bold text-black dark:text-white truncate">Nebula Weaver</p>
+<p class="text-sm text-black/60 dark:text-white/60 truncate">AI Composer</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="relative overflow-hidden rounded-lg aspect-square">
+<div class="bg-center bg-no-repeat w-full h-full bg-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Chrome Reflections" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1MgaXupss-_CUYf1Pgm8oG_DCWOyYf_5SYUjuxuNWHETE9k3sMGTqM3O5CLNhYtU0Kq_biQHraSSYaAkyPR1kT8YpIAnMU81Q6FEw7c6H4AcyM4ZOCHqFOfw_1MtrN3J8RiNaaaU4CilzvjXsWZxIdjwfaW3jvZ8j1biyZ2Mp4ZfGWBCOrnMAwV5QM4TgBM0He0MgcZFnG8d6p3W2aytMtOJIEGo1xWGj4ULrkFGu10kwIzH-UO4CDtOmYckWtEWjXg0OeCrTzTs");'></div>
+<button class="absolute bottom-3 right-3 flex items-center justify-center size-10 bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined !text-3xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="font-bold text-black dark:text-white truncate">Chrome Reflections</p>
+<p class="text-sm text-black/60 dark:text-white/60 truncate">SynthWave Creator</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="relative overflow-hidden rounded-lg aspect-square">
+<div class="bg-center bg-no-repeat w-full h-full bg-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Digital Sunrise" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAr943CtukGCZo00ClNskKX6y5C-0cKueluX9ZcFk0QQ2KUUy_vSafjsuaL9RmAfEZkWu2y6lI2zRCxe5y1Qsyg5eNSW4YXOPi34zxKC06eKUbewoy_DYPUN6XglYS94ll25vmFkl4Eo3DqTxceDGTPNUZD9Eok04tRIWTxBRqkTxmji7xmfaetuB7xL2VW8FXrXiqGS5jnkK5afhebwCTwXjweSoImVDh3XHe6Tca1eYYnuMqoKPQ2q1S-Wlqnw-shiK50v7gb2ME");'></div>
+<button class="absolute bottom-3 right-3 flex items-center justify-center size-10 bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined !text-3xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="font-bold text-black dark:text-white truncate">Digital Sunrise</p>
+<p class="text-sm text-black/60 dark:text-white/60 truncate">AmbientAI</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="relative overflow-hidden rounded-lg aspect-square">
+<div class="bg-center bg-no-repeat w-full h-full bg-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Lost in the Code" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCx3SuSHjtWF1O4FaqzvQkh7ZKEDjC5SdVTUBdVjjQLejWc8QbsCxoH0yweSerSdm7sbppDPMSMPMA6pO24MGjaEZVIYlD1Mifw40Oh1Dr2kDv02C4OJ8HMn4b2oZ8FdAMNBcYDL41HdMN8DqDie4uXBJI8WaEJSNi62MEZs7p9EXBIlUq6EvkdAhdH05et_pXSamyGwurT-4yqWGHipePA3wH5AXO8Vt635e8vogc-LDaYWep6oMpxtTf7zKym-9q01DnZMaGzFOU");'></div>
+<button class="absolute bottom-3 right-3 flex items-center justify-center size-10 bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined !text-3xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="font-bold text-black dark:text-white truncate">Lost in the Code</p>
+<p class="text-sm text-black/60 dark:text-white/60 truncate">GlitchBot</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="relative overflow-hidden rounded-lg aspect-square">
+<div class="bg-center bg-no-repeat w-full h-full bg-cover transition-transform duration-300 group-hover:scale-110" data-alt="Album art for Ethereal Echoes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQXvjJv0TJiAe6YOaTrcPQdbb_OVxa1VA57TN0K5FRHfZsjSAEzj8liDhe6IiEVR0vceKrW0g9vNEaBH-OGj8Sglo_zqNIZQr2wgIwn3bH0seyjSuboVGBUxhLst7ZRq_us1DVGVWYo3GEChC68GtcjfFYcaIjniM50fEfcOFxq_0aZeSIKneyp3pYFmgEqWzlT8ZC7-dhRyZYj4n9wI-ouASdQAWNuXhZglXGUEawTX4ME00JdlgfODpk918-gyd0Bz1ZDiCDQdk");'></div>
+<button class="absolute bottom-3 right-3 flex items-center justify-center size-10 bg-primary text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined !text-3xl">play_arrow</span>
+</button>
+</div>
+<div>
+<p class="font-bold text-black dark:text-white truncate">Ethereal Echoes</p>
+<p class="text-sm text-black/60 dark:text-white/60 truncate">SynthWave Creator</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="text-center py-12 mt-8 border-t border-black/10 dark:border-white/10">
+<p class="text-sm text-black/60 dark:text-white/60">© 2024 AI Music Gen. All Rights Reserved.</p>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</body></html>
