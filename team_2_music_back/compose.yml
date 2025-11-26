@@ -1,0 +1,60 @@
+services:
+  fastapi:
+    build: .
+    container_name: music-backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/music_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - music-network
+    volumes:
+      - ./uploads:/app/uploads
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: music-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=music_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - music-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: music-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - music-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  music-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
