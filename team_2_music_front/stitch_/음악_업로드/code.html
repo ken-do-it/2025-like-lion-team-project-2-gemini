@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>새로운 AI 음악 업로드</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Noto+Sans+KR:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#8c2bee",
+                    "background-light": "#f7f6f8",
+                    "background-dark": "#191022",
+                },
+                fontFamily: {
+                    "display": ["Space Grotesk", "Noto Sans KR", "sans-serif"]
+                },
+                borderRadius: {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
+            },
+        },
+    }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-10 md:px-20 lg:px-40 py-3">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">AI Music</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Discover</a>
+<a class="text-white text-sm font-medium leading-normal" href="#">Upload</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">My Library</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Community</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Sign Up</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBp7ptaPBvlGq0Xn8W-JD6v8E4R0YDXVG9OkA0hPljMFcZNz0kYmwoGrnjBqyCZI8MkhEm3faPx3qmmj_Vz-ruBIfFyf5b0hzHi7j-sWxJt4XFV_lALUCGy52LknfX98Y7qOhtUYeVJg_91VIhGsMlpp5fAOf4mZbCsETqSBPz1J32Hgc6WhcyMVmjH4q6VRlg6o4GB14V4EkX2_Oi02a-hQCywR8WufSG6lUDUsCY-miJIc86x9D1wQupag41krp5YCPL7AA2-5Sk");'></div>
+</div>
+<button class="md:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="px-4 sm:px-10 md:px-20 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-[960px] flex-1">
+<div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex min-w-72 flex-col gap-3">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">새로운 AI 음악 업로드</h1>
+<p class="text-[#ad92c9] text-base font-normal leading-normal">AI로 생성한 음악 파일을 업로드하고 제목, 설명, 장르 등의 세부 정보를 추가하세요.</p>
+</div>
+</div>
+<div class="flex flex-col p-4">
+<div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#4d3267] px-6 py-14">
+<div class="flex max-w-[480px] flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl text-[#ad92c9]">upload_file</span>
+<p class="text-white text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">여기에 음악 파일을 드래그 앤 드롭하세요</p>
+<p class="text-[#ad92c9] text-sm font-normal leading-normal max-w-[480px] text-center">지원 형식: MP3, WAV, FLAC. 최대 파일 크기: 100MB</p>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#362348] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#4d3267] transition-colors">
+<span class="truncate">또는 파일을 선택하세요</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-3 p-4">
+<div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">파일 업로드 중...</p><p class="text-white/70 text-base font-medium">65%</p></div>
+<div class="rounded-full bg-[#4d3267] h-2"><div class="h-2 rounded-full bg-primary" style="width: 65%;"></div></div>
+<p class="text-[#ad92c9] text-sm font-normal leading-normal">my-awesome-track.mp3</p>
+</div>
+<div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-1 flex flex-col items-center gap-4">
+<label class="w-full">
+<p class="text-white text-base font-medium leading-normal pb-2">앨범 아트</p>
+<div class="flex items-center justify-center w-full aspect-square rounded-xl border-2 border-dashed border-[#4d3267] cursor-pointer hover:bg-[#261933] transition-colors">
+<div class="text-center">
+<span class="material-symbols-outlined text-4xl text-[#ad92c9]">add_photo_alternate</span>
+<p class="text-sm text-[#ad92c9] mt-2">이미지 업로드</p>
+</div>
+</div>
+<input class="hidden" type="file"/>
+</label>
+</div>
+<div class="md:col-span-2 flex flex-col gap-6">
+<label class="flex flex-col w-full">
+<p class="text-white text-base font-medium leading-normal pb-2">제목</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#4d3267] bg-[#261933] focus:border-primary h-14 placeholder:text-[#ad92c9] p-[15px] text-base font-normal leading-normal" placeholder="음악의 제목을 입력하세요" value=""/>
+</label>
+<label class="flex flex-col w-full">
+<p class="text-white text-base font-medium leading-normal pb-2">음악에 대한 설명</p>
+<textarea class="form-textarea flex w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#4d3267] bg-[#261933] focus:border-primary h-32 placeholder:text-[#ad92c9] p-[15px] text-base font-normal leading-normal" placeholder="음악에 대한 설명을 입력하세요"></textarea>
+</label>
+</div>
+</div>
+<div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col w-full">
+<p class="text-white text-base font-medium leading-normal pb-2">장르</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#4d3267] bg-[#261933] focus:border-primary h-14 placeholder:text-[#ad92c9] p-[15px] text-base font-normal leading-normal" placeholder="예: Electronic, Lo-fi, Ambient" value=""/>
+</label>
+<label class="flex flex-col w-full">
+<p class="text-white text-base font-medium leading-normal pb-2">분위기 / 태그</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#4d3267] bg-[#261933] focus:border-primary h-14 placeholder:text-[#ad92c9] p-[15px] text-base font-normal leading-normal" placeholder="예: #chill, #focus, #relaxing" value=""/>
+</label>
+</div>
+<div class="flex justify-end gap-4 p-4 mt-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#362348] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#4d3267] transition-colors">
+<span class="truncate">취소</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">업로드</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

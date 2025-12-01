@@ -22,10 +22,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
+import os
+
+# ... imports ...
+
 # CORS 설정
+origins_str = os.getenv("ALLOWED_ORIGINS", "*")
+origins = [origin.strip() for origin in origins_str.split(",")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

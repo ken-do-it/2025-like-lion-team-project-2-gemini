@@ -1,4 +1,14 @@
 services:
+  frontend:
+    build: ../team_2_music_front
+    container_name: music-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - fastapi
+    networks:
+      - music-network
+
   fastapi:
     build: .
     container_name: music-backend
@@ -27,14 +37,15 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=music_db
-    ports:
-      - "5432:5432"
+    # Ports removed for security (internal access only)
+    # ports:
+    #   - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - music-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -42,12 +53,13 @@ services:
   redis:
     image: redis:7-alpine
     container_name: music-redis
-    ports:
-      - "6379:6379"
+    # Ports removed for security (internal access only)
+    # ports:
+    #   - "6379:6379"
     networks:
       - music-network
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 5s
       retries: 5

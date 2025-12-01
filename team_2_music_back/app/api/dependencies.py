@@ -30,6 +30,15 @@ async def get_current_user(
     """
     token = credentials.credentials
     
+    # 개발용 토큰 확인
+    if token == "dev-token-2025":
+        return {
+            "user_id": "dev_user_1",
+            "email": "dev@example.com",
+            "nickname": "Developer",
+            "roles": ["admin"]
+        }
+    
     # JWT 검증
     payload = await verify_token(token)
     
@@ -108,8 +117,18 @@ async def get_optional_user(
     if not authorization or not authorization.startswith("Bearer "):
         return None
     
+    token = authorization.replace("Bearer ", "")
+    
+    # 개발용 토큰 확인
+    if token == "dev-token-2025":
+        return {
+            "user_id": "dev_user_1",
+            "email": "dev@example.com",
+            "nickname": "Developer",
+            "roles": ["admin"]
+        }
+    
     try:
-        token = authorization.replace("Bearer ", "")
         payload = await verify_token(token)
         user_info = extract_user_info(payload)
         return user_info

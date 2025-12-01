@@ -12,16 +12,17 @@ from app.core.exceptions import DuplicateResourceError, ResourceNotFoundError
 router = APIRouter()
 
 
-@router.post("/tracks/{track_id}/like", response_model=schemas.LikeResponse)
-async def add_like(
-    track_id: int,
+@router.post("/", response_model=schemas.LikeResponse)
+async def toggle_like(
+    like_in: schemas.LikeCreate,
     current_user: dict = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     """
-    트랙에 좋아요를 추가합니다.
+    좋아요를 토글합니다 (있으면 삭제, 없으면 추가).
     인증 필요.
     """
+    track_id = like_in.track_id
     # 트랙 존재 확인
     track = crud.get_track(db, track_id=track_id)
     if not track:
@@ -29,57 +30,33 @@ async def add_like(
     
     # 이미 좋아요했는지 확인
     existing_like = crud.get_like(db, track_id=track_id, user_id=current_user["db_user_id"])
+    
     if existing_like:
-        raise DuplicateResourceError("좋아요")
-    
-    # 좋아요 추가
-    try:
-        crud.create_like(db, track_id=track_id, user_id=current_user["db_user_id"])
-    except IntegrityError:
-        db.rollback()
-        raise DuplicateResourceError("좋아요")
-    
-    # 좋아요 수 조회
-    like_count = crud.get_track_like_count(db, track_id=track_id)
-    
-    return {
-        "message": "좋아요를 추가했습니다",
-        "like_count": like_count,
-        "is_liked": True
-    }
-
-
-@router.delete("/tracks/{track_id}/like", response_model=schemas.LikeResponse)
-async def remove_like(
-    track_id: int,
-    current_user: dict = Depends(get_current_active_user),
-    db: Session = Depends(get_db)
-):
-    """
-    트랙의 좋아요를 취소합니다.
-    인증 필요.
-    """
-    # 트랙 존재 확인
-    track = crud.get_track(db, track_id=track_id)
-    if not track:
-        raise ResourceNotFoundError("트랙")
-    
-    # 좋아요 삭제
-    deleted = crud.delete_like(db, track_id=track_id, user_id=current_user["db_user_id"])
-    if not deleted:
-        raise ResourceNotFoundError("좋아요")
+        # 있으면 삭제 (취소)
+        crud.delete_like(db, track_id=track_id, user_id=current_user["db_user_id"])
+        is_liked = False
+        message = "좋아요를 취소했습니다"
+    else:
+        # 없으면 추가
+        try:
+            crud.create_like(db, track_id=track_id, user_id=current_user["db_user_id"])
+            is_liked = True
+            message = "좋아요를 추가했습니다"
+        except IntegrityError:
+            db.rollback()
+            raise DuplicateResourceError("좋아요")
     
     # 좋아요 수 조회
     like_count = crud.get_track_like_count(db, track_id=track_id)
     
     return {
-        "message": "좋아요를 취소했습니다",
+        "message": message,
         "like_count": like_count,
-        "is_liked": False
+        "is_liked": is_liked
     }
 
 
-@router.get("/tracks/{track_id}/likes", response_model=schemas.LikeListResponse)
+@router.get("/track/{track_id}", response_model=schemas.LikeListResponse)
 def get_track_likes(
     track_id: int,
     skip: int = 0,
