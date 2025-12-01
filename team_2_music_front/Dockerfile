@@ -33,29 +33,30 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# 패키지 설치
+# 빌드에 필요한 툴 설치 (native 모듈, git 의존 패키지 대비)
+RUN apk add --no-cache python3 make g++ git
+
+# 패키지 설치 (CI + 재현성 위해 npm ci 권장)
 COPY package*.json ./
 RUN npm ci
 
-# 소스 코드 복사
+# 소스 복사 & 빌드
 COPY . .
-
-# 프로덕션 빌드
 RUN npm run build
 
 # ---------- Production stage ----------
 FROM nginx:alpine
 
-# nginx 기본 설정 제거(선택)
+WORKDIR /usr/share/nginx/html
+
+# 기본 설정 제거(선택)
 RUN rm /etc/nginx/conf.d/default.conf || true
 
-# 빌드된 정적 파일 복사
-COPY --from=builder /app/dist /usr/share/nginx/html
+# 빌드 결과물 복사
+COPY --from=builder /app/dist ./
 
-# nginx 설정 복사 (직접 만든 nginx.conf)
+# nginx 설정 복사 (SPA 라우팅)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Nginx 기본 포트 80 사용
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
