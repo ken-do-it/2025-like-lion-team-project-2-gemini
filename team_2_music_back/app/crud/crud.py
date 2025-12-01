@@ -30,9 +30,33 @@ def get_track(db: Session, track_id: int):
 def get_tracks(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Track).offset(skip).limit(limit).all()
 
+def search_tracks(db: Session, query: str, skip: int = 0, limit: int = 100):
+    """트랙 검색 (제목, 아티스트, 설명)"""
+    search_query = f"%{query}%"
+    return db.query(models.Track).filter(
+        (models.Track.title.ilike(search_query)) |
+        (models.Track.artist_name.ilike(search_query)) |
+        (models.Track.description.ilike(search_query))
+    ).offset(skip).limit(limit).all()
+
 def create_track(db: Session, track: schemas.TrackCreate, owner_id: int):
     db_track = models.Track(**track.dict(), owner_user_id=owner_id)
     db.add(db_track)
+    db.commit()
+    db.refresh(db_track)
+    return db_track
+
+def update_track(db: Session, track_id: int, track_update: schemas.TrackUpdate):
+    """트랙 정보 업데이트"""
+    db_track = db.query(models.Track).filter(models.Track.id == track_id).first()
+    if not db_track:
+        return None
+    
+    # 업데이트할 필드만 적용
+    update_data = track_update.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(db_track, field, value)
+    
     db.commit()
     db.refresh(db_track)
     return db_track

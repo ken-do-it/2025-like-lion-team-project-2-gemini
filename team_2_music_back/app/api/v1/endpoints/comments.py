@@ -32,7 +32,7 @@ async def create_comment(
     return db_comment
 
 
-@router.get("/tracks/{track_id}/comments", response_model=schemas.CommentListResponse)
+@router.get("/track/{track_id}", response_model=schemas.CommentListResponse)
 def get_track_comments(
     track_id: int,
     skip: int = 0,

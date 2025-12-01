@@ -108,6 +108,10 @@ class CommentListResponse(BaseModel):
 
 
 # 팔로우 스키마
+class FollowRequest(BaseModel):
+    followed_user_id: int
+
+
 class Follow(BaseModel):
     follower_id: int
     following_id: int

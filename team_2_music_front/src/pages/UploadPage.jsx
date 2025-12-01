@@ -15,6 +15,9 @@ export default function UploadPage() {
         genre: '',
         tags: '',
         coverImage: null,
+        aiPlatform: 'suno', // Default
+        aiPlatformOther: '',
+        aiModel: '',
     });
 
     const handleDrag = (e) => {
@@ -77,14 +80,24 @@ export default function UploadPage() {
         try {
             // Step 1: Initiate upload
             setUploadProgress(20);
+            // Debug logging
+            console.log('Sending upload request:', {
+                filename: formData.file.name,
+                content_type: formData.file.type,
+                file_size: formData.file.size,
+            });
+
             const initiateResponse = await trackAPI.initiateUpload({
                 filename: formData.file.name,
                 content_type: formData.file.type,
+                file_size: formData.file.size,
             });
 
-            // Step 2: Upload to S3
+            // Step 2: Upload to S3 (or local storage)
             setUploadProgress(40);
-            const { presigned_url, file_key } = initiateResponse.data;
+            const { presigned_url, upload_id } = initiateResponse.data;
+
+            console.log('Upload initiated:', { presigned_url, upload_id });
 
             await fetch(presigned_url, {
                 method: 'PUT',
@@ -96,11 +109,16 @@ export default function UploadPage() {
 
             setUploadProgress(70);
 
+            // Prepare description with AI metadata
+            const aiPlatformFinal = formData.aiPlatform === 'other' ? formData.aiPlatformOther : formData.aiPlatform;
+            const aiMetadata = `\n\n---\nAI Platform: ${aiPlatformFinal}\nAI Model: ${formData.aiModel}\nGenre: ${formData.genre}\nTags: ${formData.tags}`;
+            const finalDescription = (formData.description || '') + aiMetadata;
+
             // Step 3: Finalize upload with metadata
             await trackAPI.finalizeUpload({
-                file_key,
+                upload_id,
                 title: formData.title,
-                description: formData.description || null,
+                description: finalDescription,
                 genre: formData.genre || null,
                 tags: formData.tags ? formData.tags.split(',').map(t => t.trim()) : [],
             });
@@ -110,7 +128,9 @@ export default function UploadPage() {
             navigate('/profile');
         } catch (error) {
             console.error('Upload failed:', error);
-            alert('업로드 실패: ' + (error.response?.data?.detail || error.message));
+            const errorDetail = error.response?.data?.detail;
+            const errorMessage = typeof errorDetail === 'object' ? JSON.stringify(errorDetail) : (errorDetail || error.message);
+            alert('업로드 실패: ' + errorMessage);
         } finally {
             setUploading(false);
             setUploadProgress(0);
@@ -119,7 +139,7 @@ export default function UploadPage() {
 
     return (
         <main className="flex-1">
-            <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8 max-w-4xl">
+            <div className="custom-container py-6 sm:py-8 max-w-2xl mx-auto">
                 <div className="mb-6 sm:mb-8">
                     <h1 className="text-3xl sm:text-4xl font-black leading-tight tracking-tight text-white">
                         새로운 AI 음악 업로드
@@ -197,8 +217,8 @@ export default function UploadPage() {
                                 className="flex items-center justify-center w-full aspect-square rounded-xl border-2 border-dashed border-[#4d3267] cursor-pointer hover:bg-[#261933] transition-colors overflow-hidden"
                                 style={
                                     formData.coverImage
-                                        ? { backgroundImage: `url(${URL.createObjectURL(formData.coverImage)})`, backgroundSize: 'cover', backgroundPosition: 'center' }
-                                        : {}
+                                        ? { backgroundImage: `url(${URL.createObjectURL(formData.coverImage)})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '15rem' }
+                                        : { height: '15rem' }
                                 }
                             >
                                 {!formData.coverImage && (
@@ -238,6 +258,47 @@ export default function UploadPage() {
                         </div>
                     </div>
 
+
+                    {/* AI Metadata Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label className="flex flex-col w-full">
+                            <p className="text-white text-base font-medium mb-2">어떤 AI를 사용했나요? (필수)</p>
+                            <select
+                                value={formData.aiPlatform}
+                                onChange={(e) => setFormData(prev => ({ ...prev, aiPlatform: e.target.value }))}
+                                className="form-select flex w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#8c2bee]/50 border border-[#4d3267] bg-[#261933] focus:border-[#8c2bee] h-12 p-3 sm:p-4 text-sm sm:text-base"
+                                required
+                            >
+                                <option value="suno">Suno</option>
+                                <option value="mureka">Mureka</option>
+                                <option value="soundraw">Soundraw</option>
+                                <option value="other">기타 (직접 입력)</option>
+                            </select>
+                            {formData.aiPlatform === 'other' && (
+                                <input
+                                    type="text"
+                                    value={formData.aiPlatformOther}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, aiPlatformOther: e.target.value }))}
+                                    className="mt-2 form-input flex w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#8c2bee]/50 border border-[#4d3267] bg-[#261933] focus:border-[#8c2bee] h-12 placeholder:text-[#ad92c9] p-3 sm:p-4 text-sm sm:text-base"
+                                    placeholder="사용하신 AI 플랫폼 이름을 입력하세요"
+                                    required
+                                />
+                            )}
+                        </label>
+
+                        <label className="flex flex-col w-full">
+                            <p className="text-white text-base font-medium mb-2">사용한 모델 (필수)</p>
+                            <input
+                                type="text"
+                                value={formData.aiModel}
+                                onChange={(e) => setFormData(prev => ({ ...prev, aiModel: e.target.value }))}
+                                className="form-input flex w-full rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-[#8c2bee]/50 border border-[#4d3267] bg-[#261933] focus:border-[#8c2bee] h-12 placeholder:text-[#ad92c9] p-3 sm:p-4 text-sm sm:text-base"
+                                placeholder="예: v3, v3.5, Udio beta"
+                                required
+                            />
+                        </label>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <label className="flex flex-col w-full">
                             <p className="text-white text-base font-medium mb-2">장르</p>
@@ -274,14 +335,14 @@ export default function UploadPage() {
                         </button>
                         <button
                             type="submit"
-                            disabled={uploading || !formData.file}
+                            disabled={uploading || !formData.file || !formData.aiModel || (formData.aiPlatform === 'other' && !formData.aiPlatformOther)}
                             className="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-11 sm:h-12 px-6 bg-[#8c2bee] text-white text-sm sm:text-base font-bold hover:bg-[#9c3bfe] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {uploading ? '업로드 중...' : '업로드'}
                         </button>
                     </div>
-                </form>
-            </div>
-        </main>
+                </form >
+            </div >
+        </main >
     );
 }

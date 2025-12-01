@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { userAPI, trackAPI } from '../services/api';
+import EditTrackModal from '../components/EditTrackModal';
 
 export default function ProfilePage() {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('my-music');
+    const [openMenuId, setOpenMenuId] = useState(null);
+    const [editingTrack, setEditingTrack] = useState(null);
 
     useEffect(() => {
         fetchUserData();
         fetchUserTracks();
     }, []);
+
+    useEffect(() => {
+        // Close menu when clicking outside
+        const handleClickOutside = () => setOpenMenuId(null);
+        if (openMenuId) {
+            document.addEventListener('click', handleClickOutside);
+            return () => document.removeEventListener('click', handleClickOutside);
+        }
+    }, [openMenuId]);
 
     const fetchUserData = async () => {
         try {
@@ -34,9 +48,18 @@ export default function ProfilePage() {
         }
     };
 
+    const handleEdit = (track) => {
+        setEditingTrack(track);
+        setOpenMenuId(null);
+    };
+
+    const handleEditSuccess = () => {
+        fetchUserTracks();
+    };
+
     return (
         <main className="flex-1">
-            <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
+            <div className="custom-container py-6 sm:py-8">
                 <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
                     {/* Sidebar - Desktop */}
                     <aside className="hidden lg:block lg:w-1/4 xl:w-1/5">
@@ -67,8 +90,8 @@ export default function ProfilePage() {
                                 <button
                                     onClick={() => setActiveTab('my-music')}
                                     className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${activeTab === 'my-music'
-                                            ? 'bg-[#8c2bee]/20 text-[#8c2bee]'
-                                            : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-[#8c2bee]/20 text-[#8c2bee]'
+                                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
                                         }`}
                                 >
                                     <span className="material-symbols-outlined">queue_music</span>
@@ -77,8 +100,8 @@ export default function ProfilePage() {
                                 <button
                                     onClick={() => setActiveTab('statistics')}
                                     className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${activeTab === 'statistics'
-                                            ? 'bg-[#8c2bee]/20 text-[#8c2bee]'
-                                            : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-[#8c2bee]/20 text-[#8c2bee]'
+                                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
                                         }`}
                                 >
                                     <span className="material-symbols-outlined">bar_chart</span>
@@ -116,8 +139,8 @@ export default function ProfilePage() {
                                 <button
                                     onClick={() => setActiveTab('my-music')}
                                     className={`flex flex-col items-center justify-center border-b-[3px] pb-3 pt-2 ${activeTab === 'my-music'
-                                            ? 'border-[#8c2bee] text-white'
-                                            : 'border-transparent text-gray-400 hover:text-white'
+                                        ? 'border-[#8c2bee] text-white'
+                                        : 'border-transparent text-gray-400 hover:text-white'
                                         }`}
                                 >
                                     <p className="text-sm font-bold">My Music</p>
@@ -125,8 +148,8 @@ export default function ProfilePage() {
                                 <button
                                     onClick={() => setActiveTab('statistics')}
                                     className={`flex flex-col items-center justify-center border-b-[3px] pb-3 pt-2 ${activeTab === 'statistics'
-                                            ? 'border-[#8c2bee] text-white'
-                                            : 'border-transparent text-gray-400 hover:text-white'
+                                        ? 'border-[#8c2bee] text-white'
+                                        : 'border-transparent text-gray-400 hover:text-white'
                                         }`}
                                 >
                                     <p className="text-sm font-bold">Statistics</p>
@@ -167,7 +190,8 @@ export default function ProfilePage() {
                                                     {tracks.map((track) => (
                                                         <tr
                                                             key={track.id}
-                                                            className="border-b border-white/10 hover:bg-white/5 transition-colors"
+                                                            onClick={() => navigate(`/track/${track.id}`)}
+                                                            className="border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
                                                         >
                                                             <td className="px-4 sm:px-6 py-4 font-medium text-white">
                                                                 <div className="flex items-center gap-3">
@@ -176,7 +200,7 @@ export default function ProfilePage() {
                                                                         style={{
                                                                             backgroundImage: track.cover_image_url
                                                                                 ? `url(${track.cover_image_url})`
-                                                                                : "url('https://via.placeholder.com/100')",
+                                                                                : "linear-gradient(to bottom right, #7c3aed, #2563eb)",
                                                                         }}
                                                                     />
                                                                     <div className="min-w-0">
@@ -191,12 +215,59 @@ export default function ProfilePage() {
                                                             <td className="px-4 sm:px-6 py-4 hidden md:table-cell">
                                                                 {new Date(track.created_at).toLocaleDateString()}
                                                             </td>
-                                                            <td className="px-4 sm:px-6 py-4 text-right">
-                                                                <button className="text-gray-400 hover:text-white transition-colors">
+                                                            <td className="px-4 sm:px-6 py-4 text-right relative">
+                                                                <button
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setOpenMenuId(openMenuId === track.id ? null : track.id);
+                                                                    }}
+                                                                    className="text-gray-400 hover:text-white transition-colors"
+                                                                >
                                                                     <span className="material-symbols-outlined text-xl">
                                                                         more_vert
                                                                     </span>
                                                                 </button>
+
+                                                                {/* Dropdown Menu */}
+                                                                {openMenuId === track.id && (
+                                                                    <div className="absolute right-0 top-full mt-1 w-48 bg-[#2a2a2a] rounded-lg shadow-xl border border-white/10 z-10">
+                                                                        <button
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                window.open(`http://localhost:8002/api/v1/tracks/${track.id}/stream`, '_blank');
+                                                                                setOpenMenuId(null);
+                                                                            }}
+                                                                            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-white hover:bg-white/10 transition-colors rounded-t-lg"
+                                                                        >
+                                                                            <span className="material-symbols-outlined text-lg">download</span>
+                                                                            Download
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                alert('Edit functionality coming soon!');
+                                                                                setOpenMenuId(null);
+                                                                            }}
+                                                                            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-white hover:bg-white/10 transition-colors"
+                                                                        >
+                                                                            <span className="material-symbols-outlined text-lg">edit</span>
+                                                                            Edit
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                if (confirm(`Delete "${track.title}"?`)) {
+                                                                                    alert('Delete functionality coming soon!');
+                                                                                }
+                                                                                setOpenMenuId(null);
+                                                                            }}
+                                                                            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-white/10 transition-colors rounded-b-lg"
+                                                                        >
+                                                                            <span className="material-symbols-outlined text-lg">delete</span>
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
+                                                                )}
                                                             </td>
                                                         </tr>
                                                     ))}

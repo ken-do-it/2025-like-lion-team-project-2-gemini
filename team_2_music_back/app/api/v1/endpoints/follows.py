@@ -12,16 +12,18 @@ from app.core.exceptions import DuplicateResourceError, ResourceNotFoundError, V
 router = APIRouter()
 
 
-@router.post("/users/{user_id}/follow", response_model=schemas.FollowResponse)
-async def follow_user(
-    user_id: int,
+@router.post("/", response_model=schemas.FollowResponse)
+async def toggle_follow(
+    follow_req: schemas.FollowRequest,
     current_user: dict = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     """
-    사용자를 팔로우합니다.
+    사용자를 팔로우/언팔로우 토글합니다.
     인증 필요.
     """
+    user_id = follow_req.followed_user_id
+    
     # 자기 자신 팔로우 방지
     if user_id == current_user["db_user_id"]:
         raise ValidationError("자기 자신을 팔로우할 수 없습니다")
@@ -37,69 +39,43 @@ async def follow_user(
         follower_id=current_user["db_user_id"], 
         following_id=user_id
     )
-    if existing_follow:
-        raise DuplicateResourceError("팔로우")
     
-    # 팔로우 추가
-    try:
-        crud.create_follow(
+    if existing_follow:
+        # 언팔로우
+        crud.delete_follow(
             db, 
             follower_id=current_user["db_user_id"], 
             following_id=user_id
         )
-    except IntegrityError:
-        db.rollback()
-        raise DuplicateResourceError("팔로우")
+        is_following = False
+        message = "언팔로우했습니다"
+    else:
+        # 팔로우
+        try:
+            crud.create_follow(
+                db, 
+                follower_id=current_user["db_user_id"], 
+                following_id=user_id
+            )
+            is_following = True
+            message = "팔로우했습니다"
+        except IntegrityError:
+            db.rollback()
+            raise DuplicateResourceError("팔로우")
     
     # 팔로워/팔로잉 수 조회
     follower_count = crud.get_follower_count(db, user_id=user_id)
     following_count = crud.get_following_count(db, user_id=current_user["db_user_id"])
     
     return {
-        "message": "팔로우했습니다",
+        "message": message,
         "follower_count": follower_count,
         "following_count": following_count,
-        "is_following": True
+        "is_following": is_following
     }
 
 
-@router.delete("/users/{user_id}/follow", response_model=schemas.FollowResponse)
-async def unfollow_user(
-    user_id: int,
-    current_user: dict = Depends(get_current_active_user),
-    db: Session = Depends(get_db)
-):
-    """
-    사용자를 언팔로우합니다.
-    인증 필요.
-    """
-    # 사용자 존재 확인
-    target_user = crud.get_user_profile(db, user_id=user_id)
-    if not target_user:
-        raise ResourceNotFoundError("사용자")
-    
-    # 언팔로우
-    deleted = crud.delete_follow(
-        db, 
-        follower_id=current_user["db_user_id"], 
-        following_id=user_id
-    )
-    if not deleted:
-        raise ResourceNotFoundError("팔로우")
-    
-    # 팔로워/팔로잉 수 조회
-    follower_count = crud.get_follower_count(db, user_id=user_id)
-    following_count = crud.get_following_count(db, user_id=current_user["db_user_id"])
-    
-    return {
-        "message": "언팔로우했습니다",
-        "follower_count": follower_count,
-        "following_count": following_count,
-        "is_following": False
-    }
-
-
-@router.get("/users/{user_id}/followers", response_model=schemas.FollowListResponse)
+@router.get("/{user_id}/followers", response_model=schemas.FollowListResponse)
 def get_user_followers(
     user_id: int,
     skip: int = 0,
@@ -124,7 +100,7 @@ def get_user_followers(
     }
 
 
-@router.get("/users/{user_id}/following", response_model=schemas.FollowListResponse)
+@router.get("/{user_id}/following", response_model=schemas.FollowListResponse)
 def get_user_following(
     user_id: int,
     skip: int = 0,
@@ -149,7 +125,7 @@ def get_user_following(
     }
 
 
-@router.get("/users/{user_id}/follow-status")
+@router.get("/{user_id}/follow-status")
 async def get_follow_status(
     user_id: int,
     current_user: dict = Depends(get_current_active_user),

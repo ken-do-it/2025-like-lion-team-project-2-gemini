@@ -2,15 +2,19 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { trackAPI, likeAPI, commentAPI } from '../services/api';
 import TrackCard from '../components/common/TrackCard';
+import { usePlayer } from '../context/PlayerContext';
 
 export default function DetailPage() {
     const { id } = useParams();
+    const { playTrack, isPlaying, currentTrack, togglePlay } = usePlayer();
     const [track, setTrack] = useState(null);
     const [relatedTracks, setRelatedTracks] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
+
+    const isCurrentTrack = currentTrack?.id === track?.id;
 
     useEffect(() => {
         if (id) {
@@ -44,7 +48,8 @@ export default function DetailPage() {
     const fetchComments = async () => {
         try {
             const response = await commentAPI.getByTrack(id);
-            const commentsData = Array.isArray(response.data) ? response.data : [];
+            // Backend returns { comments: [], total: 0 }
+            const commentsData = response.data.comments || [];
             setComments(commentsData);
         } catch (error) {
             console.error('Failed to fetch comments:', error);
@@ -79,6 +84,14 @@ export default function DetailPage() {
         }
     };
 
+    const handlePlay = () => {
+        if (isCurrentTrack) {
+            togglePlay();
+        } else {
+            playTrack(track);
+        }
+    };
+
     if (loading) {
         return (
             <main className="flex-1 flex items-center justify-center">
@@ -102,7 +115,7 @@ export default function DetailPage() {
 
     return (
         <main className="flex-1">
-            <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8 max-w-6xl">
+            <div className="custom-container py-6 sm:py-8">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     {/* Left: Album Art & Player */}
                     <div className="flex-1 lg:max-w-md">
@@ -114,7 +127,7 @@ export default function DetailPage() {
                                     style={{
                                         backgroundImage: track.cover_image_url
                                             ? `url(${track.cover_image_url})`
-                                            : "url('https://via.placeholder.com/500')",
+                                            : "linear-gradient(to bottom right, #7c3aed, #2563eb)",
                                     }}
                                 />
                             </div>
@@ -131,8 +144,13 @@ export default function DetailPage() {
                                     <button className="flex items-center justify-center w-10 h-10 text-[#8c2bee] hover:scale-110 transition-transform">
                                         <span className="material-symbols-outlined text-3xl">skip_previous</span>
                                     </button>
-                                    <button className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#8c2bee] text-white rounded-full hover:scale-110 transition-transform">
-                                        <span className="material-symbols-outlined text-4xl sm:text-5xl">play_arrow</span>
+                                    <button
+                                        onClick={handlePlay}
+                                        className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#8c2bee] text-white rounded-full hover:scale-110 transition-transform"
+                                    >
+                                        <span className="material-symbols-outlined text-4xl sm:text-5xl">
+                                            {isCurrentTrack && isPlaying ? 'pause' : 'play_arrow'}
+                                        </span>
                                     </button>
                                     <button className="flex items-center justify-center w-10 h-10 text-[#8c2bee] hover:scale-110 transition-transform">
                                         <span className="material-symbols-outlined text-3xl">skip_next</span>
@@ -157,8 +175,8 @@ export default function DetailPage() {
                             <button
                                 onClick={handleLike}
                                 className={`flex-1 sm:flex-none flex items-center justify-center gap-2 h-11 sm:h-12 px-5 sm:px-6 rounded-lg font-medium text-sm sm:text-base transition-colors ${isLiked
-                                        ? 'bg-[#8c2bee]/20 text-[#8c2bee]'
-                                        : 'bg-white/10 text-white hover:bg-white/20'
+                                    ? 'bg-[#8c2bee]/20 text-[#8c2bee]'
+                                    : 'bg-white/10 text-white hover:bg-white/20'
                                     }`}
                             >
                                 <span className={`material-symbols-outlined text-xl ${isLiked ? 'filled' : ''}`}>
@@ -209,7 +227,7 @@ export default function DetailPage() {
                                 <div
                                     className="w-10 h-10 rounded-full bg-cover bg-center flex-shrink-0"
                                     style={{
-                                        backgroundImage: "url('https://api.dicebear.com/7.x/avataaars/svg?seed=user')",
+                                        backgroundImage: "linear-gradient(to bottom right, #7c3aed, #2563eb)",
                                     }}
                                 />
                                 <div className="flex-1">
@@ -240,7 +258,7 @@ export default function DetailPage() {
                                             <div
                                                 className="w-10 h-10 rounded-full bg-cover bg-center flex-shrink-0"
                                                 style={{
-                                                    backgroundImage: "url('https://api.dicebear.com/7.x/avataaars/svg?seed=user')",
+                                                    backgroundImage: "linear-gradient(to bottom right, #7c3aed, #2563eb)",
                                                 }}
                                             />
                                             <div className="flex-1">

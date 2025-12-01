@@ -32,7 +32,7 @@ export default function HomePage() {
 
     return (
         <main className="flex-1">
-            <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
+            <div className="custom-container py-6 sm:py-8">
                 {/* Hero Section - Reduced height */}
                 <section
                     className="relative mb-8 sm:mb-12 flex min-h-[280px] sm:min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-xl bg-cover bg-center p-6 sm:p-8 text-center"
