@@ -15,4 +15,4 @@ services:
       context: ./team_2_music_front
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80" # 바깥 3000 → 컨테이너 80
