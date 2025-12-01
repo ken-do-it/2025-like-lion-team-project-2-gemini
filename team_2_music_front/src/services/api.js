@@ -2,7 +2,10 @@ import axios from 'axios';
 
 // Force port 8002 for now
 // const API_BASE_URL = 'http://localhost:8002';
-const API_BASE_URL = 'http://15.165.200.236:8000/api/v1';
+
+// const API_BASE_URL = 'http://15.165.200.236:8000/api/v1';
+// 아래있는걸로 변경이 되어야 배포되고 문제가 확인이 가능
+const API_BASE_URL = 'http://15.165.200.236:8000';
 console.log('API_BASE_URL:', API_BASE_URL);
 
 const api = axios.create({
