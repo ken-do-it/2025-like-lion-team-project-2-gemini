@@ -80,3 +80,14 @@ jobs:
     
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag music-backend:latest
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./team_2_music_front
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Frontend Docker image
+      run: docker build . --file Dockerfile --tag music-frontend:latest
