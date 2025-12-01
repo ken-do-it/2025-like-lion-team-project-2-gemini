@@ -1,0 +1,73 @@
+services:
+  fastapi:
+    build:
+      context: ./team_2_music_back
+      dockerfile: Dockerfile
+    container_name: music-backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./team_2_music_back:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - ./team_2_music_back/.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/music_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - music-network
+
+  frontend:
+    build:
+      context: ./team_2_music_front
+      dockerfile: Dockerfile
+    container_name: music-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - music-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: music-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=music_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - music-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: music-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - music-network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  music-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
