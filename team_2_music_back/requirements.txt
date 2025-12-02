@@ -12,7 +12,7 @@ httpx
 pydantic-settings
 python-multipart
 pytest
-pytest-asyncio
+pytest-asyncio==0.21.1
 flake8
 black
 isort

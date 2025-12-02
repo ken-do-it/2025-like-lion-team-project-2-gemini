@@ -12,141 +12,116 @@
 2025-like-lion-team-project-2-gemini/
 ├── team_2_music_back/     # 백엔드 (FastAPI)
 ├── team_2_music_front/    # 프론트엔드 (React)
+├── compose.dev.yml        # Full Stack 개발용 Docker Compose
 └── README.md
 ```
 
-## 🚀 백엔드 (team_2_music_back)
+## 🚀 실행 방법 (Deployment)
 
-### 기술 스택
+### 1. Full Stack 실행 (권장 - 루트 디렉토리)
 
-- **Framework**: FastAPI
-- **Database**: PostgreSQL 15
-- **Cache**: Redis 7
-- **Storage**: AWS S3
-- **Authentication**: JWT (RS256)
-- **ORM**: SQLAlchemy
-- **Migration**: Alembic
-- **Testing**: Pytest
-- **Containerization**: Docker & Docker Compose
+백엔드와 프론트엔드를 동시에 실행합니다. EC2 배포 시 이 방법을 사용합니다.
 
-### 주요 기능
+```bash
+# 프로젝트 루트 디렉토리에서 실행
+# (team_2_music_back/.env 파일이 설정되어 있어야 함)
 
-#### ✅ 구현 완료
-- **사용자 관리**: 프로필 생성, 조회, 수정
-- **음악 업로드**: S3 Presigned URL을 통한 안전한 업로드
-- **음악 스트리밍**: Proxy 스트리밍으로 파일 경로 보호
-- **소셜 기능**:
-  - 좋아요 (Like)
-  - 댓글 (Comment)
-  - 팔로우 (Follow)
-- **플레이리스트**: 생성, 트랙 추가/제거
-- **재생 기록**: 자동 기록 및 조회
-- **Docker 환경**: 완전한 컨테이너화
-- **CI/CD**: GitHub Actions 자동화
-- **테스트**: 단위 및 통합 테스트
+# 개발 모드 (프론트엔드 포트 3000, 백엔드 포트 8000)
+docker compose -f compose.dev.yml up -d --build
+```
 
-#### 🔜 예정
-- 알림 시스템
-- 검색 기능
-- 추천 알고리즘
+- **Frontend**: `http://localhost:3000` (EC2: `http://<EC2_IP>:3000`)
+- **Backend API**: `http://localhost:8000` (EC2: `http://<EC2_IP>:8000`)
 
-### 실행 방법
-
-#### Docker로 실행 (권장)
+### 2. 백엔드만 실행
 
 ```bash
 cd team_2_music_back
-
-# 환경 변수 설정
 cp .env.example .env
-# .env 파일을 편집하여 필요한 값 입력
-
-# Docker Compose로 실행
 docker compose up -d
-
-# 로그 확인
-docker compose logs -f
-
-# 종료
-docker compose down
 ```
 
-#### 로컬 실행
+## 🛠️ 문제 해결 및 개선 사항 (Troubleshooting Log)
 
-```bash
-cd team_2_music_back
+개발 과정에서 발생한 주요 이슈와 해결 방법을 상세히 기록했습니다.
 
-# 가상 환경 생성 및 활성화
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+### 1. 테스트 실패 해결 (`test_upload_finalize_flow`)
+- **문제**: `finalize_upload` 엔드포인트 테스트 시 `artist_name`이 "testuser"가 아닌 "Anonymous"로 설정되는 오류 발생.
+- **원인**: 엔드포인트가 `get_optional_user` 의존성을 사용하는데, 테스트 Fixture(`authorized_client`)에서는 `get_current_user`만 오버라이드하고 `get_optional_user`는 오버라이드하지 않음.
+- **해결**: `tests/conftest.py`에서 `get_optional_user`도 함께 오버라이드하도록 수정.
+  ```python
+  # tests/conftest.py
+  app.dependency_overrides[get_current_user] = mock_get_current_user
+  app.dependency_overrides[get_optional_user] = mock_get_current_user  # 추가됨
+  ```
 
-# 의존성 설치
-pip install -r requirements.txt
+### 2. Pytest 호환성 문제 해결
+- **문제**: 테스트 실행 시 `AttributeError: 'Package' object has no attribute 'obj'` 오류 발생하며 실행 불가.
+- **원인**: `pytest-asyncio` 최신 버전(1.3.0)과 `pytest` 9.0 간의 호환성 문제.
+- **해결**: `pytest-asyncio` 버전을 안정적인 `0.21.1`로 다운그레이드.
+  ```bash
+  pip install pytest-asyncio==0.21.1
+  ```
 
-# 데이터베이스 마이그레이션
-alembic upgrade head
+### 3. Docker 빌드 오류 해결
+- **문제**: GitHub Actions CI에서 `npm install` 실패 오류 발생.
+- **원인**: 백엔드 `Dockerfile` (`team_2_music_back/Dockerfile`) 하단에 프론트엔드 빌드 단계가 잘못 추가되어 있었음. 백엔드 디렉토리에는 `package.json`이 없으므로 빌드 실패.
+- **해결**:
+  1. 백엔드 `Dockerfile`에서 잘못된 프론트엔드 빌드 단계 제거.
+  2. `.github/workflows/ci.yml`에 프론트엔드 빌드 작업(`build-frontend`)을 별도로 추가하여 CI 파이프라인 분리.
 
-# 서버 실행
-uvicorn app.main:app --reload --port 8000
-```
+### 4. API URL 중복 문제 해결
+- **문제**: 프론트엔드에서 API 호출 시 404 오류 발생. URL이 `http://.../api/v1/api/v1/tracks` 처럼 중복됨.
+- **원인**: `src/services/api.js`의 `API_BASE_URL` 설정에 `/api/v1`이 포함되어 있었는데, 개별 API 호출 함수에서도 `/api/v1`을 붙여서 중복 발생.
+- **해결**: `API_BASE_URL`을 루트 URL로 수정.
+  ```javascript
+  // src/services/api.js
+  // 변경 전: const API_BASE_URL = 'http://15.165.200.236:8000/api/v1';
+  // 변경 후:
+  const API_BASE_URL = 'http://15.165.200.236:8000';
+  ```
 
-### API 문서
-
-서버 실행 후 다음 URL에서 API 문서를 확인할 수 있습니다:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
-### 테스트
-
-```bash
-# Docker 환경에서 테스트
-docker compose exec fastapi pytest
-
-# 로컬 환경에서 테스트
-pytest
-```
-
-### 데이터베이스 마이그레이션
-
-```bash
-# 새 마이그레이션 생성
-docker compose exec fastapi alembic revision --autogenerate -m "설명"
-
-# 마이그레이션 적용
-docker compose exec fastapi alembic upgrade head
-
-# 마이그레이션 롤백
-docker compose exec fastapi alembic downgrade -1
-```
+### 5. Docker Compose 경로 문제 해결
+- **문제**: 루트에서 `compose.dev.yml` 실행 시 `path not found` 오류 발생.
+- **원인**: `compose.dev.yml`이 `team_2_music_back` 폴더 안에 있을 때를 기준으로 작성되어 있어, 프론트엔드 경로가 `./team_2_music_front`로 되어 있었음. (루트 기준으로는 맞지만, 파일이 백엔드 폴더에 있다고 가정된 상태였음 -> 루트로 이동하면서 경로 수정 필요)
+- **해결**: 루트 디렉토리에 `compose.dev.yml`을 새로 생성하고, 경로를 명시적으로 지정.
+  ```yaml
+  # compose.dev.yml
+  frontend:
+    build:
+      context: ./team_2_music_front  # 루트 기준 올바른 경로
+  ```
 
 ## 🎨 프론트엔드 (team_2_music_front)
 
 ### 기술 스택
-- **Framework**: React
-- **(추가 정보 필요)*
+- **Core**: React 18, Vite
+- **Styling**: Tailwind CSS v4
+- **State Management**: React Context API (MusicPlayerContext)
+- **Networking**: Axios (Interceptors로 JWT 토큰 관리)
+- **Routing**: React Router DOM
 
-## 🔄 CI/CD
+### 주요 기능
+- **음악 재생**: 하단 고정 플레이어, 재생/일시정지, 볼륨/진행바 조절
+- **업로드**: 드래그 앤 드롭 지원, 메타데이터 입력
+- **반응형 UI**: 모바일 및 데스크탑 지원
 
-GitHub Actions를 통해 자동화된 CI/CD 파이프라인이 구축되어 있습니다:
+## � 백엔드 (team_2_music_back)
 
-- **테스트**: 모든 푸시와 PR에서 자동 실행
-- **린트**: Flake8을 통한 코드 스타일 검사
-- **빌드**: Docker 이미지 빌드 검증
+### 기술 스택
+- **Framework**: FastAPI
+- **Database**: PostgreSQL 15, Redis 7
+- **Storage**: AWS S3 (Presigned URL)
+- **Auth**: JWT (RS256)
 
-## 📦 배포
+## 📦 배포 상태
 
-- **개발 환경**: Docker Compose
-- **프로덕션 환경**: AWS EC2 (예정)
-
-## 👥 팀 멤버
-
-- Team 2
+- **환경**: AWS EC2 (Ubuntu 22.04)
+- **URL**:
+  - Frontend: `http://15.165.200.236:3000`
+  - Backend: `http://15.165.200.236:8000`
+- **CI/CD**: GitHub Actions (CI 완료, CD는 수동 배포)
 
 ## 📝 라이선스
 
 MIT License
-
-## 📚 참고 문서
-
-- [백엔드 상세 문서](./team_2_music_back/README.md)
-- [아키텍처 설계](./team_2_music_back/skill_back_music.md)
